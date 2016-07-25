@@ -1,6 +1,6 @@
 package org.fineframework.email;
 /**
- * 邮件处理自定义异常类
+ * 邮件处理的自定义异常类
  */
 public class EmailException extends Exception {
 	
