@@ -1,0 +1,61 @@
+@CHARSET "UTF-8";
+
+.panel {
+	margin-top: 20px;
+}
+
+.datagrid-header {
+	border-top: 1px solid #9ca09e;
+	border-bottom: 1px solid #9ca09e;
+	background: #bec0bf;
+}
+.datagrid-header td,
+.datagrid-body td,
+.datagrid-footer td {
+  border-width: 0 1px 1px 0;
+  border-style: solid;
+  border-color:#9ca09e;
+  margin: 0;
+  padding: 0;
+}
+.datagrid-header-row {
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.datagrid-row {
+	height: 30px;
+	line-height: 30px;
+}
+
+.datagrid-row-over {
+	background: #D3FFFF;
+}
+
+.datagrid-header td.datagrid-header-over {
+	background: #bec0bf;
+}
+
+.datagrid-row-selected {
+	background: #7aa6ed;
+	color: #fff;
+}
+
+.optionbtn{
+	text-decoration: none;
+	color:#A0522D;
+}
+.optionbtn:HOVER {
+	text-decoration: underline;
+	color:red;
+}
+
+
+
+
+
+
+

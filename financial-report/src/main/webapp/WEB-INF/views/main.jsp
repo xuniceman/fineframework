@@ -5,7 +5,7 @@
 <head>
 <title>智慧免疫云-财务报表专用平台</title>
 <%@ include file="/WEB-INF/views/layout/command.jsp"%>
-<script type="text/javascript" src="resources/js/main.js"></script>
+<script type="text/javascript" src="${basepath}resources/js/main.js"></script>
 </head>
 <body>
 	<div class="header">
@@ -23,7 +23,9 @@
 		<div class="main_left">
 			<jsp:include page="layout/left.jsp"/>
 		</div>
-		<div class="main_right">dd</div>
+		<div class="main_right">
+			<iframe name="conentview"></iframe>
+		</div>
 		<div class="clear"></div>
 	</div>
 	<!-- 视图主体end -->

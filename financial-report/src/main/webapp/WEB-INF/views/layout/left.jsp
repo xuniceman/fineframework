@@ -1,23 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link href="resources/css/zTreeStyle/zTreeStyle.css" rel="stylesheet"
+<link href="${basepath}resources/css/zTreeStyle/zTreeStyle.css" rel="stylesheet"
 	type="text/css">
-<link href="resources/css/menu.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="resources/js/jquery.ztree.core.js"></script>
+<link href="${basepath}resources/css/menu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${basepath}resources/js/jquery.ztree.core.js"></script>
 <script type="text/javascript">
-	var curMenu = null, zTree_Menu = null;
 	var setting = {
+		data : {
+			simpleData : {
+				enable : true
+			}
+		},
 		view : {
 			showLine : false,
 			showIcon : false,
 			selectedMulti : false,
 			dblClickExpand : false,
 			addDiyDom : addDiyDom
-		},
-		data : {
-			simpleData : {
-				enable : true
-			}
 		},
 		callback : {
 			beforeClick : beforeClick
@@ -27,72 +26,93 @@
 	var zNodes = [ {
 		id : 1,
 		pId : 0,
-		name : "文件夹",
+		name : "系统管理",
 		open : true
 	}, {
 		id : 11,
 		pId : 1,
-		name : "收件箱"
+		name : "父节点11 - 折叠",
+		url:"http://www.baidu.com"
+		
 	}, {
 		id : 12,
-		pId : 1,
-		name : "垃圾邮件"
+		pId : 11,
+		name : "父节点12 - 折叠",
+		url:"http://www.baidu.com"
 	}, {
 		id : 13,
 		pId : 1,
-		name : "草稿"
+		name : "父节点13 - 没有子节点",
+		url:"http://www.baidu.com"
 	}, {
-		id : 14,
-		pId : 1,
-		name : "已发送邮件"
-	}, {
-		id : 15,
-		pId : 1,
-		name : "已删除邮件"
-	}, {
-		id : 3,
+		id : 2,
 		pId : 0,
-		name : "快速视图"
+		name : "系统设置"
 	}, {
-		id : 31,
-		pId : 3,
-		name : "文档"
+		id : 21,
+		pId : 2,
+		name : "系统模块管理",
+		url:"account/sysmoudel",
+		target:"conentview"
 	}, {
-		id : 32,
-		pId : 3,
-		name : "照片"
+		id : 4,
+		pId : 0,
+		name : "财务统计",
+		isParent : true
 	} ];
-
+	var node;
 	function addDiyDom(treeId, treeNode) {
-		var spaceWidth = 5;
-		var switchObj = $("#" + treeNode.tId + "_switch"), icoObj = $("#"
-				+ treeNode.tId + "_ico");
-		switchObj.remove();
-		icoObj.before(switchObj);
-
-		if (treeNode.level > 0) {
-			var spaceStr = "<span style='display: inline-block;width:"
-					+ (spaceWidth * treeNode.level) + "px'></span>";
-			switchObj.before(spaceStr);
+		if(treeNode.open)
+		{
+			node = "_menu_tree_"+treeNode.id+"_a .pointicon";
 		}
 	}
-
+	
 	function beforeClick(treeId, treeNode) {
 		if (treeNode.level == 0) {
-			var zTree = $.fn.zTree.getZTreeObj("_menu_tree");
+			var zTree = $.fn.zTree.getZTreeObj("_menu_tree");			
+			if(treeNode.open)
+			{
+				$("#"+treeNode.tId+"_a .pointicon").css("background","url(resources/images/base_z.png) 0 -422px no-repeat");
+			}
+			else
+			{
+				$("#"+treeNode.tId+"_a .pointicon").css("background","url(resources/images/base_z.png) 0 -396px no-repeat");
+			}
 			zTree.expandNode(treeNode);
 			return false;
 		}
 		return true;
 	}
-
 	$(document).ready(function() {
-		var treeObj = $("#_menu_tree");
-		$.fn.zTree.init(treeObj, setting, zNodes);
+		$.fn.zTree.init($("#_menu_tree"), setting, zNodes);
+		//调整ztree树左侧图标
 		$(".ztree li a.level0").prepend("<i class='icon'></i>");
-		//$(".ztree li a.level0").prepend("<i class='pointicon'></i>");
+		$(".ztree li a.level0").append("<i class='pointicon'></i>");
+		$("#"+node).css("background","url(resources/images/base_z.png) 0 -396px no-repeat");
+		node = null;
+		
+		/*$.ajax({
+			cache : true,
+			type : "POST",
+			url : "account/sysmenu",
+			async : false,
+			error : function(request) {
+				alert("Connection error");
+			},
+			success : function(data) {
+				if (data.success) {
+					$.fn.zTree.init($("#_menu_tree"), setting, data.data);
+					//调整ztree树左侧图标
+					$(".ztree li a.level0").prepend("<i class='icon'></i>");
+					$(".ztree li a.level0").append("<i class='pointicon'></i>");
+					$("#"+node).css("background","url(resources/images/base_z.png) 0 -396px no-repeat");
+					node = null;
+				} else {
+					alert(data.msg);
+				}
+			}
+		});*/
 	});
 </script>
-
-<ul id="_menu_tree" class="ztree">
-</ul>
+<ul id="_menu_tree" class="ztree"></ul>

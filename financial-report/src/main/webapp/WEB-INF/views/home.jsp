@@ -5,7 +5,11 @@
 <head>
 <title>智慧免疫云-财务报表专用平台</title>
 <%@ include file="/WEB-INF/views/layout/command.jsp"%>
-<script type="text/javascript" src="resources/js/home.js"></script>
+<script type="text/javascript" src="${basepath}resources/js/home.js"></script>
+<script type="text/javascript">
+	if (window != top)
+		top.location.href = location.href;
+</script>
 </head>
 <body>
 	<div class="header">
@@ -22,14 +26,17 @@
 						</div>
 						<div class="login_text_u">
 							<div class="icon"></div>
-							<input id="_username" type="text" name="username" placeholder="用户名">
+							<input id="_username" type="text" name="username"
+								placeholder="用户名">
 						</div>
 						<div class="login_text_p">
 							<div class="icon"></div>
-							<input id="_userpwd" type="password" name="userpwd" placeholder="密码">
+							<input id="_userpwd" type="password" name="userpwd"
+								placeholder="密码">
 						</div>
 						<div class="login_code">
-							<input id="_usercode" type="text" name="usercode" placeholder="验证码">
+							<input id="_usercode" type="text" name="usercode"
+								placeholder="验证码">
 							<div class="login_code_pic">
 								<img alt="" src="makecode/make">
 							</div>

@@ -26,6 +26,7 @@
 		<!-- 账户合法性验证 -->
 		<interceptor>	
 			<mapping path="/main"/>
+			<mapping path="/main/*"/>
 			<mapping path="/account/*"/>
 			<beans:bean class="com.shensu.financialreport.web.account.AccountInterceptor"/>
 		</interceptor>

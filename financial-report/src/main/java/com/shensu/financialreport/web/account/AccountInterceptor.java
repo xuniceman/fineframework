@@ -21,9 +21,10 @@ public class AccountInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		// 从session中获取登录账户数据
 		Map<String, Object> accountMap = (Map<String, Object>) request.getSession().getAttribute("account");
-
+		//验证主url合法性
+		int url = request.getRequestURI().indexOf("main/");
 		// 如果有继续执行否则转到登录页面
-		if (accountMap != null) {
+		if (accountMap != null && url==-1) {
 			return true;
 		} else {
 			String path = request.getContextPath();
