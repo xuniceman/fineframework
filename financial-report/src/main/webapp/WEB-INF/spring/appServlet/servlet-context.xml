@@ -21,7 +21,32 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 自定义拦截器 -->
+	<interceptors>
+		<!-- 账户合法性验证 -->
+		<interceptor>	
+			<mapping path="/main"/>
+			<mapping path="/account/*"/>
+			<beans:bean class="com.shensu.financialreport.web.account.AccountInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 	<context:component-scan base-package="com.shensu.financialreport" />
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
