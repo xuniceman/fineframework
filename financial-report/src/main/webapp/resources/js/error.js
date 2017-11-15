@@ -4,7 +4,7 @@ $(document).ready(function() {
 		$('#validate').validate({
 			errorPlacement : function(error, element) {
 				element.parent().append("&nbsp;&nbsp;");
-				element.parent().append(error);
+				element.parent().append(error.html());
 				element.parent().css("color","red");
 			}
 		});

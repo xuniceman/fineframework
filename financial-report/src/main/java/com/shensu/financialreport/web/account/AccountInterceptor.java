@@ -19,7 +19,7 @@ public class AccountInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		// 从session中获取登录账户数据
+		//从session中获取登录账户数据
 		Map<String, Object> accountMap = (Map<String, Object>) request.getSession().getAttribute("account");
 		//验证主url合法性
 		int url = request.getRequestURI().indexOf("main/");
