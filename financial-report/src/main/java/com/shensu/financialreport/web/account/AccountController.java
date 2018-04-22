@@ -1,5 +1,6 @@
 package com.shensu.financialreport.web.account;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,13 +29,41 @@ import com.shensu.web.core.ResultCodeVo;
  */
 @Controller
 public class AccountController {
+	
+	private String serverUrl = "http://127.0.0.1:8080/solr7/jobs";
 	/**
 	 * 登录首页
 	 * 
 	 * @return
+	 * @throws IOException 
+	 * @throws SolrServerException 
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
+	public String home() throws SolrServerException, IOException {
+		
+		HttpSolrClient client = new HttpSolrClient(serverUrl);
+        
+       
+        SolrQuery query = new SolrQuery();
+       
+        query.set("q", "name:帽子");      
+        query.setStart(0);
+        query.setRows(10);
+         
+ 
+        QueryResponse queryResponse = client.query(query);
+  
+        SolrDocumentList results = queryResponse.getResults();
+       
+        long numFound = results.getNumFound();
+        System.out.println("总条数:" + numFound);
+       
+        Map<String, Map<String, List<String>>> highlighting = queryResponse.getHighlighting();
+        for (SolrDocument solrDocument : results) {
+            System.out.println("id:" + solrDocument.get("id"));
+            System.out.println("名称 :" + solrDocument.get("name")); 
+        }
+        client.close();
 		return "home";
 	}
 
